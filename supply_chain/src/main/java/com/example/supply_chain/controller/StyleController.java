@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.supply_chain.model.Style;
+import com.example.supply_chain.model.style;
 import com.example.supply_chain.service.StyleServiceInterface;
 
 
@@ -29,25 +29,25 @@ public class StyleController {
 	}
 	
 	@GetMapping("/select-style")
-	public List<Style> select() {		
+	public List<style> select() {		
 		return service.getAllStyle();		
 	}
 	
 	@GetMapping("/select/stylebyId/{id}")
-	public List<Style> selectById(@PathVariable("id") long id){
+	public List<style> selectById(@PathVariable("id") long id){
 		return service.getById(id);
 		
 	}
 	
 	@PostMapping("/add/style")
-	public String insert(@RequestBody Style s) {
+	public String insert(@RequestBody style s) {
 		service.addData(s);
 		return "Inserted Successfully";
 		
 	}
 	
 	@PutMapping("/update/style")
-	public String update(@RequestBody Style s) {
+	public String update(@RequestBody style s) {
 		service.updateData(s);
 		return "Updated Successfully";
 	}
@@ -59,7 +59,7 @@ public class StyleController {
 	}
 	
 	@GetMapping("/select/style/dao")
-	public List<Style> getData(){
+	public List<style> getData(){
 		return service.getAllData();
-	}1															11		1qq	1	1q1	q1	q			11	q																																	q11111
+	}																													
 }

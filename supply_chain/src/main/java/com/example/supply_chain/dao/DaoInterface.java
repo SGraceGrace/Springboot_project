@@ -2,11 +2,11 @@ package com.example.supply_chain.dao;
 
 import java.util.List;
 
-import com.example.supply_chain.model.Style;
+import com.example.supply_chain.model.style;
 
 public interface DaoInterface {
 
-	List<Style> getAllData();
+	List<style> getAllData();
 	void supplierNameUpdate(String oldName,String newName);
 	void supplierNameUpdateInstyle(String oldName , String newName);
 	void facilityNameUpdate(String oldName, String newName);

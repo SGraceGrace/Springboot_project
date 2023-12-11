@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.example.supply_chain.dao.DaoInterface;
 import com.example.supply_chain.model.Facilities;
 import com.example.supply_chain.model.Suppliers;
-import com.example.supply_chain.model.Style;
+import com.example.supply_chain.model.style;
 
 @Repository
 public class DaoImplementation implements DaoInterface {
@@ -22,8 +22,8 @@ public class DaoImplementation implements DaoInterface {
 		this.template = template;
 	}
 
-	public List<Style> getAllData() {
-		return template.findAll(Style.class);
+	public List<style> getAllData() {
+		return template.findAll(style.class);
 	}
 
 	public void supplierNameUpdate(String oldName, String newName) {
@@ -45,7 +45,7 @@ public class DaoImplementation implements DaoInterface {
 
 		Update update = new Update().set("supplier_name", newName);
 
-		template.updateFirst(query, update, Style.class);
+		template.updateFirst(query, update, style.class);
 	}
 
 	public void facilityNameUpdate(String oldName, String newName) {
@@ -67,6 +67,6 @@ public class DaoImplementation implements DaoInterface {
 
 		Update update = new Update().set("facility_name", newName);
 
-		template.updateFirst(query, update, Style.class);
+		template.updateFirst(query, update, style.class);
 	}
 }

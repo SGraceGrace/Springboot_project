@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Document(collection="style")
 @Data
-public class Style{
+public class style{
 	
 	    @Id
         private long _id;
@@ -22,7 +22,7 @@ public class Style{
 	    private String facilityName;
 	    
 	    @Field("material_composition")
-	    private ArrayList<String> materialComposition;
+	    private ArrayList<Material> materialComposition;
 	    
 	    @Field("required_certificate")
 	    private String requiredCertificate;
@@ -50,5 +50,12 @@ public class Style{
 	    	@Getter
 	    	@Setter
 	    	private String amount;
-	    }       
+	    }   
+	    
+	    @Data
+	    public class Material{
+	    	@Field("m_id")
+	    	private String mid;
+	    	private int composition;
+	    }
 }

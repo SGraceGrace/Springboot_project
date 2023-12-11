@@ -2,14 +2,14 @@ package com.example.supply_chain.service;
 
 import java.util.List;
 
-import com.example.supply_chain.model.Style;
+import com.example.supply_chain.model.style;
 
 public interface StyleServiceInterface {
 
-	List<Style> getAllStyle();
-	List<Style> getById(long _id);
-	void addData(Style s);
-	void updateData(Style s);
+	List<style> getAllStyle();
+	List<style> getById(long _id);
+	void addData(style s);
+	void updateData(style s);
 	void deleteData(long _id);
-	List<Style> getAllData();
+	List<style> getAllData();
 }

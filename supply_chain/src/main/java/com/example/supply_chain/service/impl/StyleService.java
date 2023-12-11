@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.supply_chain.dao.DaoInterface;
-import com.example.supply_chain.model.Style;
+import com.example.supply_chain.model.style;
 import com.example.supply_chain.repository.StyleRepository;
 import com.example.supply_chain.service.StyleServiceInterface;
 
@@ -20,23 +20,23 @@ public class StyleService implements StyleServiceInterface{
 	@Autowired
 	DaoInterface dao;;
 
-	public List<Style> getAllStyle(){		
-		List<Style> list = new ArrayList<>();
+	public List<style> getAllStyle(){		
+		List<style> list = new ArrayList<>();
 		list = repo.findAll();
 		return list;		
 	}
 	
-	public List<Style> getById(long _id){
-		List<Style> list = new ArrayList<>();
+	public List<style> getById(long _id){
+		List<style> list = new ArrayList<>();
 		list = repo.findBy_id(_id);
 		return list;
 	}
 	
-	public void addData(Style s) {
+	public void addData(style s) {
 		repo.save(s);
 	}
 	
-	public void updateData(Style s) {
+	public void updateData(style s) {
 		repo.save(s);
 	}
 	
@@ -44,7 +44,7 @@ public class StyleService implements StyleServiceInterface{
 		repo.deleteBy_id(_id);
 	}
 	
-	public List<Style> getAllData(){
+	public List<style> getAllData(){
 		return dao.getAllData();
 		
 	}
