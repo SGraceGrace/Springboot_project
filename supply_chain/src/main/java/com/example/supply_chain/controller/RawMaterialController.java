@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.supply_chain.model.Facilities;
 import com.example.supply_chain.model.RawMaterial;
 import com.example.supply_chain.service.RawMaterialServiceInterface;
 

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.supply_chain.model.Suppliers;
-import com.example.supply_chain.model.style;
 import com.example.supply_chain.service.SupplierServiceInterface;
 
 @RestController
