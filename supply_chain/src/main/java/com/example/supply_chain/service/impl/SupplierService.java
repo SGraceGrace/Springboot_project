@@ -2,6 +2,7 @@ package com.example.supply_chain.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,9 @@ public class SupplierService implements SupplierServiceInterface{
 		return list;
 	}
 	
-	public List<Suppliers> getById(long _id){
-		List<Suppliers> list = new ArrayList<>();
-		list = repo.findBy_id(_id);
-		return list;
+	public Suppliers getById(long _id){
+		Optional<Suppliers> list = repo.findById(_id);
+		return list.get();
 	}
 	
 	public void saveData(Suppliers s) {

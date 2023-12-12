@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.supply_chain.model.Facilities;
+import com.example.supply_chain.model.Suppliers;
 import com.example.supply_chain.service.FacilitiesServiceInterface;
 
 @RestController
@@ -29,27 +30,45 @@ public class FacilitiesController {
 	}
 	
 	@GetMapping("/select/facilitiesbyId/{id}")
-	public List<Facilities> getById(@PathVariable("id") long id){
+	public Facilities getById(@PathVariable("id") long id){
 		return service.getById(id);
 		
 	}
 	
 	@PostMapping("/save/facilities")
 	public String insert(@RequestBody Facilities f) {
-		service.saveData(f);
-		return "Inserted Successfully";
+		Facilities d = service.getById(f.get_id());
+		if(d == null) {
+			service.saveData(f);
+		    return "Facility not exist";
+		}
+		else {
+			return "Inserted Successfully";
+		}
 	}
 	
 	@PutMapping("/update/facility")
 	public String update(@RequestBody Facilities f) {
-		service.update(f);
-		return "Updated Successfully";
+		Facilities d = service.getById(f.get_id());
+		if(d == null) {
+			service.update(f);
+		    return "Facility not exist";
+		}
+		else {
+			return "Updated Successfully";
+		}
 	}
 	
 	@DeleteMapping("/delete/facility/{id}")
 	public String delete(@PathVariable("id") long id) {
-		service.delete(id);
-		return "Deleted Successfully";
+		Facilities d = service.getById(id);
+		if(d == null) {
+			service.delete(id);
+		    return "Facility not exist";
+		}
+		else {
+			return "Deleted Successfully";
+		}
 	}
 	
 	@PutMapping("/update/facility-name")

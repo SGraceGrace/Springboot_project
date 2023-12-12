@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.supply_chain.model.Suppliers;
+import com.example.supply_chain.model.style;
 import com.example.supply_chain.service.SupplierServiceInterface;
 
 @RestController
@@ -29,27 +30,45 @@ public class SuppliersController {
 	}
 	
 	@GetMapping("/select/suppliersbyId/{id}")
-	public List<Suppliers> getById(@PathVariable("id") long id){
+	public Suppliers getById(@PathVariable("id") long id){
 		return service.getById(id);
 		
 	}
 	
 	@PostMapping("/save/suppliers")
 	public String insert(@RequestBody Suppliers s) {
-		service.saveData(s);
-		return "Inserted Successfully";
+		Suppliers d = service.getById(s.get_id());
+		if(d == null) {
+			service.saveData(s);
+		    return "Supplier not exist";
+		}
+		else {
+			return "Inserted Successfully";
+		}
 	}
 	
 	@PutMapping("/update/supplier")
 	public String update(@RequestBody Suppliers s) {
-		service.update(s);
-		return "Updated Successfully";
+		Suppliers d = service.getById(s.get_id());
+		if(d == null) {
+			service.update(s);
+		    return "Supplier not exist";
+		}
+		else {
+			return "Updated Successfully";
+		}
 	}
 	
 	@DeleteMapping("/delete/supplier/{id}")
 	public String delete(@PathVariable("id") long id) {
-		service.delete(id);
-		return "Deleted Successfully";
+		Suppliers d = service.getById(id);
+		if(d == null) {
+			service.delete(id);
+		    return "Supplier not exist";
+		}
+		else {
+			return "Deleted Successfully";
+		}
 	}
 	
 	@PutMapping("/update/supplier-name")

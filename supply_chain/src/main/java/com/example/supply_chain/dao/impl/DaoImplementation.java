@@ -1,6 +1,5 @@
 package com.example.supply_chain.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -78,18 +77,20 @@ public class DaoImplementation implements DaoInterface {
 		template.remove(query, style.class);
 	}
 	
-	public boolean checkStyle(long id) {
-		
-		Criteria criteria = Criteria.where("_id").is(id);
-	    Query query = new Query(criteria);
-	    
-	    List<style> list = new ArrayList<>();
-	    
-		list=template.find(query, style.class);
-		//System.out.println(list.size());
-		if(list.size() > 0) {
-			return true;
-		}
-		return false;
-	}
+//	public boolean checkStyle(long id) {
+//		
+//		Criteria criteria = Criteria.where("_id").is(id);
+//	    Query query = new Query(criteria);
+//	    
+//	    //List<style> list = new ArrayList<>();
+//	    
+//		//list=template.find(query, style.class);
+//		
+//		long count = template.count(query, style.class);
+//		//System.out.println(count);
+//		if(count > 0) {
+//			return true;
+//		}
+//		return false;
+//	}
 }

@@ -12,5 +12,5 @@ public interface DaoInterface {
 	void facilityNameUpdate(String oldName, String newName);
 	void facilityNameUpdateInstyle(String oldName, String newName);
 	void deleteStyle(long id);
-	boolean checkStyle(long id);
+	//boolean checkStyle(long id);
 }

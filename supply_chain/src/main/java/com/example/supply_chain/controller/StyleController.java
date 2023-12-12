@@ -34,33 +34,54 @@ public class StyleController {
 	}
 	
 	@GetMapping("/select/stylebyId/{id}")
-	public List<style> selectById(@PathVariable("id") long id){
+	public style selectById(@PathVariable("id") long id){
 		return service.getById(id);
 		
 	}
 	
 	@PostMapping("/add/style")
 	public String insert(@RequestBody style s) {
-		boolean check = service.addData(s);
+		style d = service.getById(s.get_id());
+		//boolean check = service.addData(s);
 		
-		if(check == true)
-		    return "Inserted Successfully";
-		
-		else
+		if(d == null) {
+			service.addData(s);
+		    return "Style not exist";
+		}
+		else {
 			return "Style already exist";
-		
+		}
+//		boolean check = service.addData(s);
+//		
+//		if(check == true)
+//		    return "Inserted Successfully";
+//		
+//		else
+//			return "Style already exist";		
 	}
 	
 	@PutMapping("/update/style")
 	public String update(@RequestBody style s) {
-		service.updateData(s);
-		return "Updated Successfully";
+		style d = service.getById(s.get_id());
+		if(d == null) {
+			service.updateData(s);
+		    return "Style not exist";
+		}
+		else {
+			return "Updated Successfully";
+		}
 	}
 	
 	@DeleteMapping("/delete/style/{id}")
 	public String deleteById(@PathVariable("id") long id) {
-		service.deleteData(id);
-		return "deleted Successfully";
+		style d = service.getById(id);
+		if(d == null) {
+			service.deleteData(id);
+		    return "Style not exist";
+		}
+		else {
+			return "Deleted Successfully";
+		}	
 	}
 	
 	@GetMapping("/select/style/dao")
@@ -70,7 +91,13 @@ public class StyleController {
 	
 	@DeleteMapping("/delete/stylebyId/{id}")
 	public String deleteId(@PathVariable ("id") long id) {
-		service.deletebyId(id);
-		return "Deleted Successfully";
+		style d = service.getById(id);
+		if(d == null) {
+			service.deleteData(id);
+		    return "Style not exist";
+		}
+		else {
+			return "Deleted Successfully";
+		}
 	}
 }

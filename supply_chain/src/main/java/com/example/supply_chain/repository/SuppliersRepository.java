@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.supply_chain.model.Suppliers;
 
-public interface SuppliersRepository extends MongoRepository<Suppliers,String>{
+public interface SuppliersRepository extends MongoRepository<Suppliers,Long>{
 
 	void deleteBy_id(long _id);
 

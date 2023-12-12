@@ -2,6 +2,7 @@ package com.example.supply_chain.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,9 @@ public class RawMaterialService implements RawMaterialServiceInterface{
 		return list;
 	}
 	
-	public List<RawMaterial> getById(long _id){
-		List<RawMaterial> list = new ArrayList<>();
-		list = repo.findBy_id(_id);
-		return list;
+	public RawMaterial getById(long _id){
+		Optional<RawMaterial> list = repo.findById(_id);
+		return list.get();
 	}
 	
 	public void saveData(RawMaterial r) {

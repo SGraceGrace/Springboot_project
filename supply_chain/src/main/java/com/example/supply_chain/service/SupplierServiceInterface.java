@@ -7,7 +7,7 @@ import com.example.supply_chain.model.Suppliers;
 public interface SupplierServiceInterface {
 
 	List<Suppliers> getAllData();
-	List<Suppliers> getById(long _id);
+	Suppliers getById(long _id);
 	void saveData(Suppliers s);
 	void update(Suppliers s);
 	void delete(long _id);

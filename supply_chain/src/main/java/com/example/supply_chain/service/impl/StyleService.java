@@ -2,6 +2,7 @@ package com.example.supply_chain.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,21 +27,21 @@ public class StyleService implements StyleServiceInterface{
 		return list;		
 	}
 	
-	public List<style> getById(long _id){
-		List<style> list = new ArrayList<>();
-		list = repo.findBy_id(_id);
-		return list;
+	public style getById(long _id){
+//		List<style> list = repo.findBy_id(_id);
+		Optional<style> result = repo.findById(_id);
+		return result.get();
 	}
 	
-	public boolean addData(style s) {
-		boolean check = dao.checkStyle(s.get_id());
-		
-		if(check == false) {
+	public void addData(style s) {
+//		boolean check = dao.checkStyle(s.get_id());
+//		
+//		if(check == false) {
 		repo.save(s);
-		return true;
-		}else {
-			return false;
-		}
+//		return true;
+//		}else {
+//			return false;
+//		}
 	}
 	
 	public void updateData(style s) {

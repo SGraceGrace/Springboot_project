@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.supply_chain.model.Facilities;
 import com.example.supply_chain.model.RawMaterial;
 import com.example.supply_chain.service.RawMaterialServiceInterface;
 
@@ -28,26 +29,44 @@ public class RawMaterialController {
 	}
 	
 	@GetMapping("/select/rawmaterialbyId/{id}")
-	public List<RawMaterial> getById(@PathVariable("id") long id){
+	public RawMaterial getById(@PathVariable("id") long id){
 		return service.getById(id);
 		
 	}
 	
 	@PostMapping("/save/rawmaterial")
 	public String insert(@RequestBody RawMaterial r) {
-		service.saveData(r);
-		return "Inserted Successfully";
+		RawMaterial d = service.getById(r.get_id());
+		if(d == null) {
+			service.saveData(r);
+		    return "RawMaterial not exist";
+		}
+		else {
+			return "Inserted Successfully";
+		}
 	}
 	
 	@PutMapping("/update/rawmaterial")
 	public String update(@RequestBody RawMaterial r) {
-		service.update(r);
-		return "Updated Successfully";
+		RawMaterial d = service.getById(r.get_id());
+		if(d == null) {
+			service.update(r);
+		    return "RawMaterial not exist";
+		}
+		else {
+			return "Updated Successfully";
+		}
 	}
 	
 	@DeleteMapping("/delete/rawmaterial/{id}")
 	public String delete(@PathVariable("id") long id) {
-		service.delete(id);
-		return "Deleted Successfully";
+		RawMaterial d = service.getById(id);
+		if(d == null) {
+			service.delete(id);
+		    return "RawMaterial not exist";
+		}
+		else {
+			return "Deleted Successfully";
+		}
 	}
 }
