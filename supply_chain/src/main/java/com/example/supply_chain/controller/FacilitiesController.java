@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.supply_chain.model.Facilities;
@@ -52,7 +53,7 @@ public class FacilitiesController {
 	}
 	
 	@PutMapping("/update/facility-name")
-	public String updateName(String oldName , String newName) {
+	public String updateName(@RequestParam String oldName , @RequestParam String newName) {
 		service.updateFacilityName(oldName,newName);
 		return "Updated Successfully";
 	}

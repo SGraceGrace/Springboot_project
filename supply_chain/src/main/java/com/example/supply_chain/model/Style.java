@@ -53,7 +53,7 @@ public class style{
 	    }   
 	    
 	    @Data
-	    public class Material{
+	    public static class Material{
 	    	@Field("m_id")
 	    	private String mid;
 	    	private int composition;

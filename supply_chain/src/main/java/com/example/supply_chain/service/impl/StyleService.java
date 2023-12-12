@@ -32,8 +32,15 @@ public class StyleService implements StyleServiceInterface{
 		return list;
 	}
 	
-	public void addData(style s) {
+	public boolean addData(style s) {
+		boolean check = dao.checkStyle(s.get_id());
+		
+		if(check == false) {
 		repo.save(s);
+		return true;
+		}else {
+			return false;
+		}
 	}
 	
 	public void updateData(style s) {
@@ -47,6 +54,11 @@ public class StyleService implements StyleServiceInterface{
 	public List<style> getAllData(){
 		return dao.getAllData();
 		
+	}
+
+	@Override
+	public void deletebyId(long id) {
+		dao.deleteStyle(id);
 	}
 }
 

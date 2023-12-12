@@ -41,8 +41,13 @@ public class StyleController {
 	
 	@PostMapping("/add/style")
 	public String insert(@RequestBody style s) {
-		service.addData(s);
-		return "Inserted Successfully";
+		boolean check = service.addData(s);
+		
+		if(check == true)
+		    return "Inserted Successfully";
+		
+		else
+			return "Style already exist";
 		
 	}
 	
@@ -61,5 +66,11 @@ public class StyleController {
 	@GetMapping("/select/style/dao")
 	public List<style> getData(){
 		return service.getAllData();
-	}																													
+	}		
+	
+	@DeleteMapping("/delete/stylebyId/{id}")
+	public String deleteId(@PathVariable ("id") long id) {
+		service.deletebyId(id);
+		return "Deleted Successfully";
+	}
 }

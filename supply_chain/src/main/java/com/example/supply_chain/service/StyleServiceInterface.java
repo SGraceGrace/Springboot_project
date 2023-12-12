@@ -8,8 +8,9 @@ public interface StyleServiceInterface {
 
 	List<style> getAllStyle();
 	List<style> getById(long _id);
-	void addData(style s);
+	boolean addData(style s);
 	void updateData(style s);
 	void deleteData(long _id);
 	List<style> getAllData();
+	void deletebyId(long id);
 }

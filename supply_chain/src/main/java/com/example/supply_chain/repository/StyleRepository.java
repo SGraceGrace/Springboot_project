@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.supply_chain.model.style;
 
-public interface StyleRepository extends MongoRepository<style, String>{
+public interface StyleRepository extends MongoRepository<style, Long>{
 
 	List<style> findBy_id(long _id);
 
