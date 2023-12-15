@@ -7,9 +7,10 @@ import com.example.supply_chain.model.Suppliers;
 public interface SupplierServiceInterface {
 
 	List<Suppliers> getAllData();
-	Suppliers getById(long _id);
+	Suppliers getById(String supplierUid);
 	void saveData(Suppliers s);
 	void update(Suppliers s);
-	void delete(long _id);
+	void delete(String _id);
 	void updateSupplierName(String oldName,String newName);
+	boolean existId(String SupplierUid);
 }

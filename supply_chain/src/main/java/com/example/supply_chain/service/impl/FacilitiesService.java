@@ -13,37 +13,41 @@ import com.example.supply_chain.repository.FacilitiesRepository;
 import com.example.supply_chain.service.FacilitiesServiceInterface;
 
 @Service
-public class FacilitiesService implements FacilitiesServiceInterface{
+public class FacilitiesService implements FacilitiesServiceInterface {
 
 	@Autowired
 	FacilitiesRepository repo;
-	
+
 	@Autowired
 	DaoInterface dao;
-	
-	public List<Facilities> getAllData(){
+
+	public List<Facilities> getAllData() {
 		List<Facilities> list = new ArrayList<>();
 		list = repo.findAll();
 		return list;
 	}
-	
-	public Facilities getById(long _id){
+
+	public boolean existId(String FacilitiesUid) {
+		return repo.existsByFacilitiesUid(FacilitiesUid);
+	}
+
+	public Facilities getById(String _id) {
 		Optional<Facilities> list = repo.findById(_id);
 		return list.get();
 	}
-	
+
 	public void saveData(Facilities f) {
 		repo.save(f);
 	}
-	
+
 	public void update(Facilities f) {
-		repo.save(f);
+		dao.updatefacility(f);
 	}
-	
-	public void delete(long _id) {
+
+	public void delete(String _id) {
 		repo.deleteBy_id(_id);
 	}
-	
+
 	public void updateFacilityName(String oldName, String newName) {
 		dao.facilityNameUpdate(oldName, newName);
 	}

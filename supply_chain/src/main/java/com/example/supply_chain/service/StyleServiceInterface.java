@@ -7,10 +7,11 @@ import com.example.supply_chain.model.style;
 public interface StyleServiceInterface {
 
 	List<style> getAllStyle();
-	style getById(long _id);
+	style getById(String _id);
 	void addData(style s);
 	void updateData(style s);
-	void deleteData(long _id);
+	void deleteData(String id);
 	List<style> getAllData();
 	void deletebyId(long id);
+	boolean existId(String styleUid);
 }

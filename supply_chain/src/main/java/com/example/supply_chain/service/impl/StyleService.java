@@ -27,7 +27,7 @@ public class StyleService implements StyleServiceInterface{
 		return list;		
 	}
 	
-	public style getById(long _id){
+	public style getById(String _id){
 //		List<style> list = repo.findBy_id(_id);
 		Optional<style> result = repo.findById(_id);
 		return result.get();
@@ -44,11 +44,15 @@ public class StyleService implements StyleServiceInterface{
 //		}
 	}
 	
-	public void updateData(style s) {
-		repo.save(s);
+	public boolean existId(String styleUid) {		
+		return repo.existsBystyleUid(styleUid);
 	}
 	
-	public void deleteData(long _id) {
+	public void updateData(style s) {
+		dao.updateStyle(s);
+	}
+	
+	public void deleteData(String _id) {
 		repo.deleteBy_id(_id);
 	}
 	

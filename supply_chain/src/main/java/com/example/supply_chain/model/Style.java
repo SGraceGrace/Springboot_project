@@ -3,6 +3,7 @@ package com.example.supply_chain.model;
 import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,11 +16,12 @@ import lombok.Setter;
 public class style{
 	
 	    @Id
-        private long _id;
+        private String _id;
 	    public Availability availability;
 	    
-	    @Field("facility_name")
-	    private String facilityName;
+	    @DBRef
+	    @Field("facility_uid")
+	    private Facilities facilityUid;
 	    
 	    @Field("material_composition")
 	    private ArrayList<Material> materialComposition;
@@ -38,8 +40,9 @@ public class style{
 	    @Field("style_uid")
 	    private String styleUid;
 	    
-	    @Field("supplier_name")
-	    private String supplierName;
+	    @DBRef
+	    @Field("supplier_uid")
+	    private Suppliers supplierUid;
 	    
 	    private String type;
 	    private String year;

@@ -3,9 +3,9 @@ package com.example.supply_chain.model;
 import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
 import lombok.Data;
 
 @Document(collection="facilities")
@@ -13,7 +13,7 @@ import lombok.Data;
 public class Facilities {
 	
     @Id
-	private long _id;
+	private String _id;
     
     private ArrayList<String> certifications;
     
@@ -28,8 +28,10 @@ public class Facilities {
     
     private String location;
     private String material;
-    
+
+   // @JsonIgnore
+    @DBRef
     @Field("supplier_uid")
-    private String supplierUid;
+    private Suppliers supplierUid;
     
 }

@@ -3,6 +3,8 @@ package com.example.supply_chain.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,50 +26,105 @@ public class SuppliersController {
 	SupplierServiceInterface service;
 	
 	@GetMapping("/select/suppliers")
-	public List<Suppliers> getAllData(){
-		return service.getAllData();
+	public ResponseEntity<List<Suppliers>> getAllData(){
+		
+		List<Suppliers> list = service.getAllData();
+		
+		try {
+			if(list != null) {
+		        ResponseEntity<List<Suppliers>> response = new ResponseEntity<>(list,HttpStatus.OK);
+		        return response;
+			}else {
+				ResponseEntity<List<Suppliers>> response = new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+				return response;
+			}
+		}
+		catch(Exception e) {
+			ResponseEntity<List<Suppliers>> response = new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+			return response;
+		}
+			
 	}
 	
 	@GetMapping("/select/suppliersbyId/{id}")
-	public Suppliers getById(@PathVariable("id") long id){
-		return service.getById(id);
+	public ResponseEntity<Suppliers> getById(@PathVariable("id") String supplierUid){
 		
+		Suppliers s = service.getById(supplierUid);
+		
+		try {
+			if(s != null) {
+				ResponseEntity<Suppliers> response = new ResponseEntity<>(s,HttpStatus.OK);
+		        return response;
+			}else {
+				ResponseEntity<Suppliers> response = new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+				return response;
+			}
+		}catch(Exception e){
+			ResponseEntity<Suppliers> response = new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+			return response;
+		}
 	}
 	
 	@PostMapping("/save/suppliers")
-	public String insert(@RequestBody Suppliers s) {
-		Suppliers d = service.getById(s.get_id());
-		if(d == null) {
-			service.saveData(s);
-		    return "Supplier not exist";
+	public ResponseEntity<String> insert(@RequestBody Suppliers s) {
+		
+		boolean check = service.existId(s.getSupplierUid());
+		
+		try {
+		    if(check == false) {
+		    	service.saveData(s);
+		    	ResponseEntity<String> response = new ResponseEntity<>("Inserted Successfully",HttpStatus.CREATED);
+		        return response;
+		    }else {
+		    	ResponseEntity<String> response = new ResponseEntity<>("Supplier Already Exists",HttpStatus.FORBIDDEN);
+		        return response;
 		}
-		else {
-			return "Inserted Successfully";
+		}catch(Exception e) {
+			ResponseEntity<String> response = new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);
+			return response;
 		}
 	}
 	
 	@PutMapping("/update/supplier")
-	public String update(@RequestBody Suppliers s) {
-		Suppliers d = service.getById(s.get_id());
-		if(d == null) {
+	public ResponseEntity<String> update(@RequestBody Suppliers s) {
+		
+		boolean check = service.existId(s.getSupplierUid());
+		
+		try {
+		if(check == true) {
 			service.update(s);
-		    return "Supplier not exist";
+			ResponseEntity<String> response = new ResponseEntity<>("Updated Successfully",HttpStatus.OK);
+	        return response;
 		}
 		else {
-			return "Updated Successfully";
+			ResponseEntity<String> response = new ResponseEntity<>("Supplier Not Exists",HttpStatus.FORBIDDEN);
+	        return response;
+		}
+		}catch(Exception e) {
+			ResponseEntity<String> response = new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);
+			return response;
 		}
 	}
 	
 	@DeleteMapping("/delete/supplier/{id}")
-	public String delete(@PathVariable("id") long id) {
-		Suppliers d = service.getById(id);
-		if(d == null) {
-			service.delete(id);
-		    return "Supplier not exist";
-		}
-		else {
-			return "Deleted Successfully";
-		}
+	public ResponseEntity<String> delete(@PathVariable("id") String id) {
+		
+		boolean check = service.existId(id);
+		
+		try {
+			if(check == true) {
+				service.delete(id);
+				ResponseEntity<String> response = new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
+		        return response;
+			}
+			else {
+				ResponseEntity<String> response = new ResponseEntity<>("Supplier Not Exists",HttpStatus.FORBIDDEN);
+		        return response;
+			}
+			}catch(Exception e) {
+				ResponseEntity<String> response = new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);
+				return response;
+			}
 	}
 	
 	@PutMapping("/update/supplier-name")

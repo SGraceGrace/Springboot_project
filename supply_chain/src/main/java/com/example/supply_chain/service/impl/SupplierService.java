@@ -27,8 +27,12 @@ public class SupplierService implements SupplierServiceInterface{
 		return list;
 	}
 	
-	public Suppliers getById(long _id){
-		Optional<Suppliers> list = repo.findById(_id);
+	public boolean existId(String SupplierUid) {		
+		return repo.existsBySupplierUid(SupplierUid);
+	}
+	
+	public Suppliers getById(String supplierUid){
+		Optional<Suppliers> list = repo.findBySupplierUid(supplierUid);
 		return list.get();
 	}
 	
@@ -37,10 +41,10 @@ public class SupplierService implements SupplierServiceInterface{
 	}
 	
 	public void update(Suppliers s) {
-		repo.save(s);
+		dao.updateSuppliers(s);;
 	}
 	
-	public void delete(long _id) {
+	public void delete(String _id) {
 		repo.deleteBy_id(_id);
 	}
 	

@@ -11,7 +11,7 @@ import lombok.Data;
 public class Suppliers {
 
 	@Id
-	private long _id;
+	private String _id;
 	
 	@Field("email_id")
 	private String emailId;
