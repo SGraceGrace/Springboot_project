@@ -31,8 +31,8 @@ public class FacilitiesService implements FacilitiesServiceInterface {
 		return repo.existsByFacilitiesUid(FacilitiesUid);
 	}
 
-	public Facilities getById(String _id) {
-		Optional<Facilities> list = repo.findById(_id);
+	public Facilities getById(String id) {
+		Optional<Facilities> list = repo.findByFacilitiesUid(id);
 		return list.get();
 	}
 

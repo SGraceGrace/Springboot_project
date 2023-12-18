@@ -4,10 +4,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Document(collection = "suppliers")
 @Data
+@AllArgsConstructor
 public class Suppliers {
 
 	@Id
@@ -33,13 +35,4 @@ public class Suppliers {
 	@Field("supplier_uid")
 	private String supplierUid;
 	private String tier;
-	
-	@Data
-	public class Location{
-		private String address;
-		private String country;
-		private String pincode;
-		private String region;
-		private String state;
-	}
 }

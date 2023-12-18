@@ -1,6 +1,5 @@
 package com.example.supply_chain.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +21,7 @@ public class SupplierService implements SupplierServiceInterface{
 	DaoInterface dao;
 	
 	public List<Suppliers> getAllData(){
-		List<Suppliers> list = new ArrayList<>();
-		list = repo.findAll();
-		return list;
+		return repo.findAll();
 	}
 	
 	public boolean existId(String SupplierUid) {		
@@ -33,7 +30,7 @@ public class SupplierService implements SupplierServiceInterface{
 	
 	public Suppliers getById(String supplierUid){
 		Optional<Suppliers> list = repo.findBySupplierUid(supplierUid);
-		return list.get();
+		return list.orElse(null);
 	}
 	
 	public void saveData(Suppliers s) {
@@ -41,11 +38,11 @@ public class SupplierService implements SupplierServiceInterface{
 	}
 	
 	public void update(Suppliers s) {
-		dao.updateSuppliers(s);;
+		repo.save(s);
 	}
 	
-	public void delete(String _id) {
-		repo.deleteBy_id(_id);
+	public void delete(String id) {
+		Suppliers s = repo.deleteBySupplierUid(id);
 	}
 	
 	public void updateSupplierName(String oldName,String newName) {

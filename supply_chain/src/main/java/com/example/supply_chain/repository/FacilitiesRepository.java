@@ -1,6 +1,7 @@
 package com.example.supply_chain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -13,5 +14,7 @@ public interface FacilitiesRepository extends MongoRepository<Facilities,String>
 	void deleteBy_id(String _id);
 
 	boolean existsByFacilitiesUid(String facilitiesUid);
+
+	Optional<Facilities> findByFacilitiesUid(String id);
 
 }

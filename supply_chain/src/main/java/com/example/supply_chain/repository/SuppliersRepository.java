@@ -16,4 +16,6 @@ public interface SuppliersRepository extends MongoRepository<Suppliers,String>{
 	Optional<Suppliers> findBySupplierUid(String supplierUid);
 
 	boolean existsBySupplierUid(String supplierUid);
+
+	Suppliers deleteBySupplierUid(String id);
 }
