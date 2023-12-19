@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
@@ -25,9 +26,25 @@ public class PhotoController {
 	PhotoService photoService;
 	
 	@PostMapping("/photos/add")
-	public String addPhoto(@RequestParam("photoUid") String photoUid,@RequestParam("supplierUid") String supplierUid , @RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
-	    String result = photoService.addPhoto(photoUid ,supplierUid , title, image);
-	    return result;
+	public ResponseEntity<String> addPhoto(@RequestParam("photoUid") String photoUid,@RequestParam("supplierUid") String supplierUid , @RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
+	    
+		try {
+			if(photoService.existsId(photoUid) == false) {
+			String result = photoService.addPhoto(photoUid ,supplierUid , title, image);
+			if(result.equals("1")) {
+				return new ResponseEntity<>("Successfully Uploaded",HttpStatus.CREATED);
+			}else if(result.equals("0")) {
+				return new ResponseEntity<>("FileType Error",HttpStatus.FORBIDDEN);
+			}else if(result.equals("-1")) {
+				return new ResponseEntity<>("Supplier not Exist",HttpStatus.FORBIDDEN);
+			}
+			}else {
+				return new ResponseEntity<>("Already Exist",HttpStatus.FORBIDDEN);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
 	}
 	
 	@GetMapping("/photos/{id}")
@@ -46,18 +63,40 @@ public class PhotoController {
         byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
+        
 	}
 	
 	@PutMapping("/photos/update")
-	public String update(@RequestParam("photoUid") String photoUid, @RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException{
+	public ResponseEntity<String> update(@RequestParam("photoUid") String photoUid,@RequestParam("supplierUid") String supplierUid , @RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException{
 		
-		String result = photoService.updatePhoto(photoUid , title, image);
-	    return result;
+		try {
+		if(photoService.existsId(photoUid) == true) {
+			String result = photoService.updatePhoto(photoUid ,supplierUid , title, image);
+			if(result.equals("1")) {
+				return new ResponseEntity<>("Successfully Uploaded",HttpStatus.CREATED);
+			}else {
+				return new ResponseEntity<>("FileType Error",HttpStatus.FORBIDDEN);
+			}
+		}else {
+			return new ResponseEntity<>("File Not Exists",HttpStatus.FORBIDDEN);
+		}
+		}catch(Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@DeleteMapping("/photos/delete/{id}")
-	public String delete(@PathVariable String id) throws IOException {
-		String result = photoService.deletePhoto(id);
-	    return result;
+	public ResponseEntity<String> delete(@PathVariable String id) throws IOException {
+		
+		try {
+			if(photoService.existsId(id) == true) {
+		        photoService.deletePhoto(id);
+		        return new ResponseEntity<>("Successfully Deleted",HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("File Not Exists",HttpStatus.FORBIDDEN);
+			}
+	}catch(Exception e) {
+		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+}
 }

@@ -48,21 +48,21 @@ public class PhotoService {
 					StandardCopyOption.REPLACE_EXISTING);
 
 			photoRepo.save(photo);
-			return "Success";
+			return "1";
 		} else {
-			return "Not Accepted";
+			return "0";
 		}
 		}else {
-			return "supplier not exist";
+			return "-1";
 		}
 	}
 
-	public String updatePhoto(String photoUid, String title, MultipartFile file) throws IOException {
+	public String updatePhoto(String photoUid,String supplierUid, String title, MultipartFile file) throws IOException {
 
-		String s = file.getOriginalFilename();
+		Photos existingPhoto = photoRepo.findByPhotoUid(photoUid);
+        			
+		    String s = file.getOriginalFilename();
 		
-		 Photos existingPhoto = photoRepo.findByPhotoUid(photoUid);
-	        
 			String oldname = existingPhoto.getTitle();		
 
 	        if (existingPhoto != null && isValidFileExtension(s)) {
@@ -80,26 +80,19 @@ public class PhotoService {
 	            	
 	            }else {
 	            	deleteImageFile(oldname);
-	            }
-	            
-	            return "Success";
+	            }	            
+	            return "1";
 	        } else {
-	            return "Not Accepted";
+	            return "0";
 	        }
 	}
 
-	public String deletePhoto(String photoUid) throws IOException {
+	public void deletePhoto(String photoUid) throws IOException {
 
 		Photos photo = getPhoto(photoUid);
 		
-		if (photo != null) {
-	        
 	        photoRepo.deleteByPhotoUid(photoUid);	        
-			deleteImageFile(photo.getTitle());			
-			return "Success";
-		} else {
-			return "Not Accepted";
-		}
+			deleteImageFile(photo.getTitle());
 	}
 
 	private void deleteImageFile(String url) {
@@ -116,6 +109,10 @@ public class PhotoService {
 		Optional<Photos> photo = photoRepo.findByphotoUid(id);
 		return photo.get();
 
+	}
+	
+	public boolean existsId(String photoUid) {
+		return photoRepo.existsByphotoUid(photoUid);
 	}
 
 	private boolean isValidFileExtension(String filename) {

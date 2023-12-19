@@ -10,7 +10,7 @@ public interface PhotoRepository extends MongoRepository<Photos, String> {
 
 	Optional<Photos> findByphotoUid(String id);
 
-	boolean existsByphotoUid();
+	boolean existsByphotoUid(String photoUid);
 
 	void deleteByPhotoUid(String photoUid);
 
