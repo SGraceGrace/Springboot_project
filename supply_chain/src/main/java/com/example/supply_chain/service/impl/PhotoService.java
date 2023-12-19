@@ -39,8 +39,6 @@ public class PhotoService {
 			
 		String s = file.getOriginalFilename();
 		
-		System.out.println(list);
-		
 		if (isValidFileExtension(s) == true) {
 			Photos photo = new Photos(photoUid,list.get(), title, upload + File.separator + file.getOriginalFilename());
 
