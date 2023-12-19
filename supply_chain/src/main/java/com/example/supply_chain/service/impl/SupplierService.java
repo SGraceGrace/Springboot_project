@@ -1,5 +1,6 @@
 package com.example.supply_chain.service.impl;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +49,10 @@ public class SupplierService implements SupplierServiceInterface{
 	public void updateSupplierName(String oldName,String newName) {
 		dao.supplierNameUpdate(oldName, newName);
 	}
+	
+//	public Suppliers getPhoto(String id) {
+//		Optional<Suppliers> photo = repo.findBySupplierUid(id);
+//		return photo.get();
+//
+//	}
 }

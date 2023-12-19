@@ -13,4 +13,5 @@ public interface SupplierServiceInterface {
 	void delete(String _id);
 	void updateSupplierName(String oldName,String newName);
 	boolean existId(String SupplierUid);
+	//Suppliers getPhoto(String id);
 }

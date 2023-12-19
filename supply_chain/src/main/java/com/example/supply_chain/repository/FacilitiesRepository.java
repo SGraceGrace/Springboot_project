@@ -17,4 +17,6 @@ public interface FacilitiesRepository extends MongoRepository<Facilities,String>
 
 	Optional<Facilities> findByFacilitiesUid(String id);
 
+	void deleteByFacilitiesUid(String id);
+
 }

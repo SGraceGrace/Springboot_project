@@ -78,18 +78,18 @@ public class DaoImplementation implements DaoInterface {
 		template.remove(query, style.class);
 	}
 
-	public void updatefacility(Facilities f) {		
-		Criteria criteria = Criteria.where("facilities_uid").is(f.getFacilitiesUid());
-		Query query = new Query(criteria);
-		template.replace(query, f);
-		
-	}
+//	public void updatefacility(Facilities f) {		
+//		Criteria criteria = Criteria.where("facilities_uid").is(f.getFacilitiesUid());
+//		Query query = new Query(criteria);
+//		template.replace(query, f);
+//		
+//	}
 
-	public void updateSuppliers(Suppliers s) {
-		Criteria criteria = Criteria.where("supplier_uid").is(s.getSupplierUid());
-		Query query = new Query(criteria);
-		template.replace(query, s);
-	}
+//	public void updateSuppliers(Suppliers s) {
+//		Criteria criteria = Criteria.where("supplier_uid").is(s.getSupplierUid());
+//		Query query = new Query(criteria);
+//		template.replace(query, s);
+//	}
 
 	public void updateStyle(style s) {
 		Criteria criteria = Criteria.where("style_uid").is(s.getStyleUid());

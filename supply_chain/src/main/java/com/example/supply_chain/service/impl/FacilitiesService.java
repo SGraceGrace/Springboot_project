@@ -41,11 +41,11 @@ public class FacilitiesService implements FacilitiesServiceInterface {
 	}
 
 	public void update(Facilities f) {
-		dao.updatefacility(f);
+		repo.save(f);
 	}
 
-	public void delete(String _id) {
-		repo.deleteBy_id(_id);
+	public void delete(String id) {
+		repo.deleteByFacilitiesUid(id);
 	}
 
 	public void updateFacilityName(String oldName, String newName) {

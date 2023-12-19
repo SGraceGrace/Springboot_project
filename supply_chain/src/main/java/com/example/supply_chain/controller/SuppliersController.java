@@ -1,5 +1,6 @@
 package com.example.supply_chain.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,4 +133,22 @@ public class SuppliersController {
 		service.updateSupplierName(oldName, newName);
 		return "Updated Name Successfully";
 	}
+	
+//	@GetMapping("/photos/{id}")
+//	public ResponseEntity<byte[]> getPhoto(@PathVariable String id) throws IOException {
+//
+//        Suppliers photo = service.getPhoto(id);
+//        
+//        String image = photo.getImage();
+//        
+//        int index = image.lastIndexOf('\\');
+//        
+//        String url = image.substring(index+1);
+//		
+//		ClassPathResource imgFile = new ClassPathResource("static/uploads/" + url);
+//
+//        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+//
+//        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
+//	}
 }
