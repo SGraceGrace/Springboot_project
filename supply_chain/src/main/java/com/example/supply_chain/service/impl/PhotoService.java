@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.supply_chain.model.Photos;
 import com.example.supply_chain.model.Suppliers;
 import com.example.supply_chain.repository.PhotoRepository;
+import com.example.supply_chain.repository.SuppliersRepository;
 
 @Service
 public class PhotoService {
@@ -24,24 +25,24 @@ public class PhotoService {
 	@Autowired
 	private PhotoRepository photoRepo;
 	
-//	@Autowired
-//	private SuppliersRepository repo;
+	@Autowired
+	private SuppliersRepository repo;
 
 	@Value("${upload.folder}")
 	String upload;
 
-	public String addPhoto(String photoUid,Suppliers supplierUid, String title, MultipartFile file) throws IOException {
-
-		//Suppliers supplier = repo.
+	public String addPhoto(String photoUid,String supplierUid, String title, MultipartFile file) throws IOException {
 		
-		//if(repo.existsById(supplier) == true) {
+		Optional<Suppliers> list = repo.findBySupplierUid(supplierUid);
+		
+		if(list.isPresent()) {
 			
 		String s = file.getOriginalFilename();
 		
-		//System.out.println(s);
+		System.out.println(list);
 		
 		if (isValidFileExtension(s) == true) {
-			Photos photo = new Photos(photoUid,supplierUid, title, upload + File.separator + file.getOriginalFilename());
+			Photos photo = new Photos(photoUid,list.get(), title, upload + File.separator + file.getOriginalFilename());
 
 			Files.copy(file.getInputStream(), Paths.get(upload + File.separator + file.getOriginalFilename()),
 					StandardCopyOption.REPLACE_EXISTING);
@@ -51,9 +52,9 @@ public class PhotoService {
 		} else {
 			return "Not Accepted";
 		}
-//		}else {
-//			return "supplier not exist";
-//		}
+		}else {
+			return "supplier not exist";
+		}
 	}
 
 	public String updatePhoto(String photoUid, String title, MultipartFile file) throws IOException {

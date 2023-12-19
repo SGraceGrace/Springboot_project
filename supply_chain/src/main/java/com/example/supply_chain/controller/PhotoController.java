@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.supply_chain.model.Photos;
-import com.example.supply_chain.model.Suppliers;
-import com.example.supply_chain.service.impl.PhotoService;
+import com.example.supply_chain.model.Photos;import com.example.supply_chain.service.impl.PhotoService;
 
 @RestController
 public class PhotoController {
@@ -27,7 +25,7 @@ public class PhotoController {
 	PhotoService photoService;
 	
 	@PostMapping("/photos/add")
-	public String addPhoto(@RequestParam("photoUid") String photoUid,@RequestParam("supplierUid") Suppliers supplierUid , @RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
+	public String addPhoto(@RequestParam("photoUid") String photoUid,@RequestParam("supplierUid") String supplierUid , @RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
 	    String result = photoService.addPhoto(photoUid ,supplierUid , title, image);
 	    return result;
 	}
