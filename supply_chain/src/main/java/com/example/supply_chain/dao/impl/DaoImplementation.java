@@ -59,6 +59,8 @@ public class DaoImplementation implements DaoInterface {
 		template.updateFirst(query, update, Facilities.class);
 
 		facilityNameUpdateInstyle(oldName, newName);
+		
+		//db.facilities.updateMany({facility_name : "oldname"},{$set:{facility_name : "newname"}} )
 	}
 
 	public void facilityNameUpdateInstyle(String oldName, String newName) {
@@ -71,9 +73,9 @@ public class DaoImplementation implements DaoInterface {
 		template.updateFirst(query, update, style.class);
 	}
 	
-	public void deleteStyle(long id) {
+	public void deleteStyle(String id) {
 		
-		Criteria criteria = Criteria.where("_id").is(id);
+		Criteria criteria = Criteria.where("style_uid").is(id);
 	    Query query = new Query(criteria);
 		template.remove(query, style.class);
 	}

@@ -113,7 +113,7 @@ public class PhotoService {
 		return photoRepo.existsByphotoUid(photoUid);
 	}
 
-	private boolean isValidFileExtension(String filename) {
+	public boolean isValidFileExtension(String filename) {
 		
 		filename = filename.replaceAll("[^.jpg]", "");
 		//System.out.println(filename);
@@ -121,5 +121,4 @@ public class PhotoService {
 
 	    return filename.matches(allowedExtensionsPattern);
 	}
-
-}
+	}

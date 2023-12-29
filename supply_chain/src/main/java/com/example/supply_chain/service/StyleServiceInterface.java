@@ -12,6 +12,6 @@ public interface StyleServiceInterface {
 	void updateData(style s);
 	void deleteData(String id);
 	List<style> getAllData();
-	void deletebyId(long id);
+	void deletebyId(String id);
 	boolean existId(String styleUid);
 }

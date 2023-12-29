@@ -11,7 +11,7 @@ public interface DaoInterface {
 	void supplierNameUpdateInstyle(String oldName , String newName);
 	void facilityNameUpdate(String oldName, String newName);
 	void facilityNameUpdateInstyle(String oldName, String newName);
-	void deleteStyle(long id);
+	void deleteStyle(String id);
 	void updateStyle(style s);
 	void updateRawMaterial(RawMaterial r);
 }

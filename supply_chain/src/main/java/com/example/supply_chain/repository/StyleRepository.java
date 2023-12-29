@@ -14,5 +14,7 @@ public interface StyleRepository extends MongoRepository<style, String>{
 
 	boolean existsBystyleUid(String styleUid);
 
+	void deleteBystyleUid(String id);
+
 
 }

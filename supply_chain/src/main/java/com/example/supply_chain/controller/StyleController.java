@@ -136,12 +136,12 @@ public class StyleController {
 
 	@DeleteMapping("/delete/stylebyId/{id}")
 	public String deleteId(@PathVariable("id") String id) {
-		style d = service.getById(id);
-		if (d == null) {
+		boolean check = service.existId(id);
+		if (check == true) {
 			service.deleteData(id);
-			return "Style not exist";
-		} else {
 			return "Deleted Successfully";
+		} else {
+			return "Style not exist";
 		}
 	}
 }

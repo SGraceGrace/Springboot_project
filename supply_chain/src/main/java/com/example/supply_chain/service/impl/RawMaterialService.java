@@ -44,7 +44,7 @@ public class RawMaterialService implements RawMaterialServiceInterface{
 		dao.updateRawMaterial(r);
 	}
 	
-	public void delete(String _id) {
-		repo.deleteBy_id(_id);
+	public void delete(String id) {
+		repo.deleteBymaterialUid(id);
 	}
 }

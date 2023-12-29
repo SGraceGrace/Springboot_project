@@ -52,8 +52,8 @@ public class StyleService implements StyleServiceInterface{
 		dao.updateStyle(s);
 	}
 	
-	public void deleteData(String _id) {
-		repo.deleteBy_id(_id);
+	public void deleteData(String id) {
+		repo.deleteBystyleUid(id);
 	}
 	
 	public List<style> getAllData(){
@@ -62,8 +62,9 @@ public class StyleService implements StyleServiceInterface{
 	}
 
 	@Override
-	public void deletebyId(long id) {
+	public void deletebyId(String id) {
 		dao.deleteStyle(id);
 	}
+	 
 }
 
