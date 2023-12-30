@@ -2,12 +2,13 @@ package com.example.supply_chain.service;
 
 import java.util.List;
 
+import com.example.supply_chain.exception.SupplierNotFound;
 import com.example.supply_chain.model.Suppliers;
 
 public interface SupplierServiceInterface {
 
 	List<Suppliers> getAllData();
-	Suppliers getById(String supplierUid);
+	Suppliers getById(String supplierUid) throws SupplierNotFound;
 	void saveData(Suppliers s);
 	void update(Suppliers s);
 	void delete(String _id);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.supply_chain.exception.StyleNotFound;
 import com.example.supply_chain.model.style;
 import com.example.supply_chain.service.StyleServiceInterface;
 
@@ -38,7 +39,7 @@ public class StyleController {
 				ResponseEntity<List<style>> response = new ResponseEntity<>(list, HttpStatus.OK);
 				return response;
 			} else {
-				ResponseEntity<List<style>> response = new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+				ResponseEntity<List<style>> response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 				return response;
 			}
 		} catch (Exception e) {
@@ -48,22 +49,9 @@ public class StyleController {
 	}
 
 	@GetMapping("/select/stylebyId/{id}")
-	public ResponseEntity<style> selectById(@PathVariable("id") String id) {
+	public style selectById(@PathVariable("id") String id) throws StyleNotFound{
 
-		style s = service.getById(id);
-
-		try {
-			if (s != null) {
-				ResponseEntity<style> response = new ResponseEntity<>(s, HttpStatus.OK);
-				return response;
-			} else {
-				ResponseEntity<style> response = new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-				return response;
-			}
-		} catch (Exception e) {
-			ResponseEntity<style> response = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-			return response;
-		}
+			return service.getById(id);
 	}
 
 	@PostMapping("/add/style")
@@ -77,7 +65,7 @@ public class StyleController {
 				ResponseEntity<String> response = new ResponseEntity<>("Inserted Successfully", HttpStatus.CREATED);
 				return response;
 			} else {
-				ResponseEntity<String> response = new ResponseEntity<>("Supplier Already Exists", HttpStatus.FORBIDDEN);
+				ResponseEntity<String> response = new ResponseEntity<>("Style Already Exists", HttpStatus.FORBIDDEN);
 				return response;
 			}
 		} catch (Exception e) {
@@ -98,7 +86,7 @@ public class StyleController {
 				ResponseEntity<String> response = new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
 				return response;
 			} else {
-				ResponseEntity<String> response = new ResponseEntity<>("Supplier Not Exists", HttpStatus.FORBIDDEN);
+				ResponseEntity<String> response = new ResponseEntity<>("Style Not Exists", HttpStatus.NOT_FOUND);
 				return response;
 			}
 		} catch (Exception e) {
@@ -119,7 +107,7 @@ public class StyleController {
 				ResponseEntity<String> response = new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
 				return response;
 			} else {
-				ResponseEntity<String> response = new ResponseEntity<>("Supplier Not Exists", HttpStatus.FORBIDDEN);
+				ResponseEntity<String> response = new ResponseEntity<>("Style Not Exists", HttpStatus.NOT_FOUND);
 				return response;
 			}
 		} catch (Exception e) {

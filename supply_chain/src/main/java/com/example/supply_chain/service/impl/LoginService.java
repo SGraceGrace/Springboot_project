@@ -16,9 +16,26 @@ public class LoginService {
 		
 	}
 	
+	public String generatePasswordToken(String userName,String password) {
+		Claims claims = Jwts.claims().setSubject(password);
+		//System.out.println("claims :"+claims);
+		String token = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS256, "test").compact();
+		// System.out.println("token :"+token);
+		return token;
+		
+	}
+	
 	public String validateToken(String token,String name){
 		// System.out.println("token :"+token);
         if(token.equals(generateToken(name, ""))){
+            return "Valid";
+        }
+        return "Invalid";
+    }
+	
+	public String validatePasswordToken(String token,String password){
+		// System.out.println("token :"+token);
+        if(token.equals(generatePasswordToken("", password))){
             return "Valid";
         }
         return "Invalid";

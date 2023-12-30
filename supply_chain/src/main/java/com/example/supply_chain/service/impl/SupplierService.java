@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.supply_chain.dao.DaoInterface;
+import com.example.supply_chain.exception.SupplierNotFound;
 import com.example.supply_chain.model.Suppliers;
 import com.example.supply_chain.repository.SuppliersRepository;
 import com.example.supply_chain.service.SupplierServiceInterface;
@@ -29,9 +30,13 @@ public class SupplierService implements SupplierServiceInterface{
 		return repo.existsBySupplierUid(SupplierUid);
 	}
 	
-	public Suppliers getById(String supplierUid){
+	public Suppliers getById(String supplierUid) throws SupplierNotFound{
 		Optional<Suppliers> list = repo.findBySupplierUid(supplierUid);
-		return list.orElse(null);
+		
+		if(list.isPresent()) 
+		    return list.orElse(null);
+		else
+			throw new SupplierNotFound(null);
 	}
 	
 	public void saveData(Suppliers s) {

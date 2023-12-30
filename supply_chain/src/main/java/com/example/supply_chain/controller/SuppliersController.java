@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.supply_chain.exception.SupplierNotFound;
 import com.example.supply_chain.model.Suppliers;
 import com.example.supply_chain.service.SupplierServiceInterface;
 
@@ -48,22 +49,8 @@ public class SuppliersController {
 	}
 	
 	@GetMapping("/select/suppliersbyId/{id}")
-	public ResponseEntity<Suppliers> getById(@PathVariable("id") String supplierUid){
-		
-		Suppliers s = service.getById(supplierUid);
-		
-		try {
-			if(s != null) {
-				ResponseEntity<Suppliers> response = new ResponseEntity<>(s,HttpStatus.OK);
-		        return response;
-			}else {
-				ResponseEntity<Suppliers> response = new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
-				return response;
-			}
-		}catch(Exception e){
-			ResponseEntity<Suppliers> response = new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
-			return response;
-		}
+	public Suppliers getById(@PathVariable("id") String supplierUid) throws SupplierNotFound{				
+		return service.getById(supplierUid);
 	}
 	
 	@PostMapping("/save/suppliers")

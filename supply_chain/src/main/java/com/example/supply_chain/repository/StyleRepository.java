@@ -1,6 +1,7 @@
 package com.example.supply_chain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -15,6 +16,8 @@ public interface StyleRepository extends MongoRepository<style, String>{
 	boolean existsBystyleUid(String styleUid);
 
 	void deleteBystyleUid(String id);
+
+	Optional<style> findBystyleUid(String id);
 
 
 }

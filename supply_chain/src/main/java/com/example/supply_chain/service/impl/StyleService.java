@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.supply_chain.dao.DaoInterface;
+import com.example.supply_chain.exception.StyleNotFound;
 import com.example.supply_chain.model.style;
 import com.example.supply_chain.repository.StyleRepository;
 import com.example.supply_chain.service.StyleServiceInterface;
@@ -27,10 +28,12 @@ public class StyleService implements StyleServiceInterface{
 		return list;		
 	}
 	
-	public style getById(String _id){
-//		List<style> list = repo.findBy_id(_id);
-		Optional<style> result = repo.findById(_id);
+	public style getById(String id) throws StyleNotFound{
+		Optional<style> result = repo.findBystyleUid(id);
+		if(result.isPresent())
 		return result.get();
+		else
+			throw new StyleNotFound(null);
 	}
 	
 	public void addData(style s) {
